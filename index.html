@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  Climate Change | EcoTech </title>
+
+    
+    <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==================== RESET & VARIABLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* الألوان الرئيسية - تدرجات طبيعية ساحرة */
+            --primary-deep: #0a1928;      /* أزرق ليلي عميق */
+            --primary-medium: #1a3b4f;     /* أزرق مخضر */
+            --accent-emerald: #2ecc71;      /* زمردي مشرق */
+            --accent-turquoise: #1abc9c;    /* فيروزي */
+            --accent-sunset: #f39c12;        /* ذهبي غروب */
+            --text-bright: #ffffff;          /* أبيض ناصع */
+            --text-soft: #e0e0e0;            /* أبيض ناعم */
+            --text-muted: #a0b8c5;           /* رمادي مزرق */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            --gradient-1: linear-gradient(135deg, #2ecc71, #1abc9c, #f39c12);
+            --gradient-2: linear-gradient(45deg, #0a1928, #1a3b4f);
+            --gradient-3: linear-gradient(225deg, #2ecc71, #1abc9c);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-deep);
+            color: var(--text-soft);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* خلفية متحركة بنجوم متلألئة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(46, 204, 113, 0.05) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 70%, rgba(26, 188, 156, 0.05) 0%, transparent 30%),
+                        repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 10px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ==================== شاشة التحميل ==================== */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader-wrapper.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            border: 4px solid transparent;
+            border-top-color: var(--accent-emerald);
+            border-bottom-color: var(--accent-turquoise);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.3);
+        }
+
+        .loader-text {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease infinite;
+            letter-spacing: 3px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.98); }
+        }
+
+        /* ==================== شريط التنقل ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 25, 40, 0.85);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 10px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--accent-turquoise));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: var(--text-soft);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            text-shadow: 0 0 10px var(--accent-emerald);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid var(--glass-border);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 900px) {
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(10, 25, 40, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 40px;
+                transition: left 0.4s ease;
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-link {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ==================== قسم الهيرو ==================== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.5) saturate(1.2);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(10, 25, 40, 0.8) 0%, 
+                rgba(26, 59, 79, 0.6) 50%,
+                rgba(46, 204, 113, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid var(--accent-emerald);
+            border-radius: 50px;
+            color: white;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .title-line {
+            display: block;
+        }
+
+        .title-line.gradient {
+            background: linear-gradient(135deg, #2ecc71, #1abc9c, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-soft);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(46, 204, 113, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary-deep);
+            transform: translateY(-5px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            z-index: 3;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* ==================== إحصائيات ==================== */
+        .stats {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(10, 25, 40, 0.95), rgba(26, 59, 79, 0.95));
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .stats-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 50px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-15px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 900px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== بطاقات المحتوى ==================== */
+        .content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 100px 50px;
+        }
+
+        .card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-left .card-image {
+            order: 1;
+        }
+
+        .card-left .card-text {
+            order: 2;
+        }
+
+        .card-right .card-image {
+            order: 2;
+        }
+
+        .card-right .card-text {
+            order: 1;
+        }
+
+        .card-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid var(--accent-emerald);
+            border-radius: 30px;
+            color: var(--accent-emerald);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .card-divider {
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+            margin-bottom: 25px;
+        }
+
+        .card-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .card-features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-soft);
+        }
+
+        .feature i {
+            color: var(--accent-emerald);
+            font-size: 1.2rem;
+        }
+
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--accent-emerald);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .card-btn:hover {
+            background: var(--accent-emerald);
+            color: var(--primary-deep);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.4);
+        }
+
+        .card-image {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--glass-border);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .card-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .card-image:hover .image-caption {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .card {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .card-left .card-image,
+            .card-right .card-image,
+            .card-left .card-text,
+            .card-right .card-text {
+                order: 0;
+            }
+
+            .card-image {
+                order: 1 !important;
+            }
+
+            .card-text {
+                order: 2 !important;
+            }
+        }
+
+        /* ==================== قسم الاقتباس ==================== */
+        .quote {
+            padding: 100px 50px;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(26, 188, 156, 0.1));
+            text-align: center;
+        }
+
+        .quote-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px;
+            background: rgba(10, 25, 40, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 60px;
+            backdrop-filter: blur(10px);
+        }
+
+        .quote-icon {
+            font-size: 4rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+
+        .quote-text {
+            font-size: 2rem;
+            font-style: italic;
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .quote-author {
+            font-size: 1.2rem;
+            color: var(--accent-emerald);
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .quote-text {
+                font-size: 1.5rem;
+            }
+
+            .quote-container {
+                padding: 30px;
+            }
+        }
+
+        /* ==================== قسم الفيديو ==================== */
+        .video-section {
+            padding: 100px 50px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .video-container {
+            max-width: 1000px;
+            margin: 50px auto 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(26, 188, 156, 0.1));
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .video-wrapper {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .video-btn {
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid var(--accent-emerald);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .video-btn:hover {
+            background: var(--accent-emerald);
+            color: var(--primary-deep);
+            transform: translateY(-5px);
+        }
+
+        /* ==================== نصائح ==================== */
+        .tips {
+            padding: 100px 50px;
+            background: linear-gradient(135deg, rgba(10, 25, 40, 0.95), rgba(26, 59, 79, 0.95));
+        }
+
+        .tips-grid {
+            max-width: 1300px;
+            margin: 60px auto 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .tip-card {
+            padding: 40px 30px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .tip-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 25px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            transition: transform 0.4s ease;
+        }
+
+        .tip-card:hover .tip-icon {
+            transform: rotate(360deg);
+        }
+
+        .tip-card h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .tip-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .tips-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== نموذج التعهد ==================== */
+        .pledge {
+            padding: 80px 50px;
+            text-align: center;
+        }
+
+        .pledge-box {
+            max-width: 600px;
+            margin: 40px auto 0;
+            padding: 50px;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(26, 188, 156, 0.1));
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .pledge-box h3 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .pledge-box h3 i {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pledge-form {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .pledge-form input {
+            flex: 1;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .pledge-form input:focus {
+            outline: none;
+            border-color: var(--accent-emerald);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .pledge-form button {
+            padding: 15px 40px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pledge-form button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .pledge-form {
+                flex-direction: column;
+            }
+        }
+
+        /* ==================== الفوتر ==================== */
+        .footer {
+            background: linear-gradient(135deg, #0a1a28, #1a3b4f);
+            padding: 80px 50px 30px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+        }
+
+        .footer-about h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin: 20px 0 15px;
+        }
+
+        .footer-about p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-emerald);
+            transform: translateY(-5px) rotate(360deg);
+        }
+
+        .footer-links h4 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-emerald);
+            padding-left: 8px;
+        }
+
+        .footer-newsletter p {
+            color: var(--text-muted);
+            margin: 20px 0 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--accent-emerald);
+        }
+
+        .newsletter-form button {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            transform: rotate(15deg);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 50px;
+            margin-top: 50px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 1000px) {
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-links h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* ==================== زر العودة للأعلى ==================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 99;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .back-to-top.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(46, 204, 113, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة التحميل -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Climate Change</div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-globe-asia"></i>
+                </div>
+                <span class="logo-text">Climate<span style="color: #2ecc71;">Change</span></span>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">الرئيسية</a>
+                <a href="#polar" class="nav-link">الدببة القطبية</a>
+                <a href="#wildfires" class="nav-link">حرائق الغابات</a>
+                <a href="#forests" class="nav-link">الغابات</a>
+                <a href="#video" class="nav-link">فيديو</a>
+                <a href="#pledge" class="nav-link">تعهد</a>
+            </div>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- قسم الهيرو -->
+   <!-- قسم الهيرو -->
+<section class="hero" id="home">
+    <!-- فيديو خلفية يعمل من الإنترنت (مثال من Coverr - مجاني) -->
+    <video class="hero-video" autoplay muted loop playsinline 
+           poster="https://images.unsplash.com/photo-1611273426858-450d8e3c9f67?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80">
+        <source src="https://cdn.coverr.co/videos/coverr-a-forest-in-the-mountains-1573/1080p.mp4" type="video/mp4">
+        <!-- بديل: صورة تظهر إذا لم يعمل الفيديو -->
+        <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9f67?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+             style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;">
+    </video>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+        <span class="hero-badge"> CLIMATE & TECHNOLOGY</span>
+        <h1 class="hero-title">
+            <span class="title-line">Green</span>
+            <span class="title-line gradient">Tech</span>
+        </h1>
+        <p class="hero-text">From the unique vantage point in space, NASA collects critical long-term observations of our changing planet — and technology is our strongest tool to protect it.</p>
+        
+        <div class="hero-buttons">
+            <a href="#polar" class="btn btn-primary">
+                <i class="fas fa-rocket"></i> استكشف
+            </a>
+            <a href="#video" class="btn btn-outline">
+                <i class="fas fa-play"></i> شاهد الفيديو
+            </a>
+        </div>
+    </div>
+    
+    <div class="scroll-indicator" id="scrollIndicator">
+        <span>Scroll</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+        
+        <div class="hero-content">
+            <span class="hero-badge">NASA EARTH OBSERVATIONS</span>
+            <h1 class="hero-title">
+                <span class="title-line">Climate</span>
+                <span class="title-line gradient">Change</span>
+            </h1>
+            <p class="hero-text">From the unique vantage point in space, NASA collects critical long-term observations of our changing planet.</p>
+            
+            <div class="hero-buttons">
+                <a href="#polar" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i> استكشف
+                </a>
+                <a href="#video" class="btn btn-outline">
+                    <i class="fas fa-play"></i> شاهد الفيديو
+                </a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator" id="scrollIndicator">
+            <span>Scroll</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- الإحصائيات -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-temperature-high"></i></div>
+                <div class="stat-number">+1.2°C</div>
+                <div class="stat-label">متوسط ارتفاع الحرارة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-water"></i></div>
+                <div class="stat-number">+20cm</div>
+                <div class="stat-label">ارتفاع مستوى البحار</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-tree"></i></div>
+                <div class="stat-number">10M</div>
+                <div class="stat-label">هكتار غابات تفقد سنوياً</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-paw"></i></div>
+                <div class="stat-number">45k</div>
+                <div class="stat-label">نوع مهدد بالانقراض</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="content">
+
+        <!-- بطاقة 1: الدببة القطبية -->
+        <section class="card card-right" id="polar">
+            <div class="card-text">
+                <span class="card-category">WILDLIFE</span>
+                <h2 class="card-title">Polar Bears: Victims of a Warming World</h2>
+                <div class="card-divider"></div>
+                <p>This polar bear is standing on melting ice — and it's not alone. Climate change is destroying habitats and threatening wildlife every day. The planet is warming, and the signs are all around us. But your actions matter: recycle, save energy, speak up. Our future depends on what we do now.</p>
+                
+                <div class="card-features">
+                    <div class="feature"><i class="fas fa-check-circle"></i> 26,000 polar bears left</div>
+                    <div class="feature"><i class="fas fa-check-circle"></i> 40% decline by 2050</div>
+                    <div class="feature"><i class="fas fa-check-circle"></i> Sea ice melting 13% per decade</div>
+                </div>
+                
+                <a href="https://interactive.carbonbrief.org/polar-bears-climate-change-what-does-science-say/index.html" target="_blank" class="card-btn">
+                    استكشف <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card-image">
+                <img src="d:\WhatsApp Image 2026-02-22 at 9.29.13 PM.jpeg" alt="Polar Bear">
+                <div class="image-caption">القطب الشمالي - 2024</div>
+            </div>
+        </section>
+
+        <!-- بطاقة 2: حرائق الغابات -->
+        <section class="card card-left" id="wildfires">
+            <div class="card-image">
+                <img src="https://www.greenpeace.org/static/planet4-international-stateless/2022/09/fbc851c4-gp1szphr_-1024x683.jpg" alt="Forest Fire">
+                <div class="image-caption">كاليفورنيا - 2023</div>
+            </div>
+            <div class="card-text">
+                <span class="card-category">DISASTERS</span>
+                <h2 class="card-title">Wildfires: A Burning Sign of Climate Change</h2>
+                <div class="card-divider"></div>
+                <p>This forest fire isn't just a tragedy — it's a warning. As global temperatures rise, droughts and heatwaves become more intense. Forests are turning into fuel, and flames are spreading faster than ever. Animals lose their homes. People breathe toxic air. These fires release even more carbon, fueling the crisis further.</p>
+                
+                <div class="card-features">
+                    <div class="feature"><i class="fas fa-check-circle"></i> 300% increase in wildfires</div>
+                    <div class="feature"><i class="fas fa-check-circle"></i> 6M hectares burn annually</div>
+                    <div class="feature"><i class="fas fa-check-circle"></i> 2B tons CO2 released</div>
+                </div>
+                
+                <a href="https://en.wikipedia.org/wiki/Wildfire" target="_blank" class="card-btn">
+                    استكشف <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- اقتباس -->
+        <section class="quote">
+            <div class="quote-container">
+                <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                <p class="quote-text">"We are the first generation to feel the impact of climate change and the last generation that can do something about it."</p>
+                <p class="quote-author">— باراك أوباما</p>
+            </div>
+        </section>
+
+        <!-- بطاقة 3: الغابات -->
+        <section class="card card-right" id="forests">
+            <div class="card-text">
+                <span class="card-category">ECOSYSTEM</span>
+                <h2 class="card-title">Forests: Earth's Natural Defense</h2>
+                <div class="card-divider"></div>
+                <p>This forest looks peaceful — full of life, balance, and beauty. But global warming is threatening places like this every day. Rising temperatures dry the soil, kill trees, and disrupt entire ecosystems. Forests are not just nature — they're our shield against climate change.</p>
+                
+                <div class="card-features">
+                    <div class="feature"><i class="fas fa-check-circle"></i> 31% of land is forest</div>
+                    <div class="feature"><i class="fas fa-check-circle"></i> 2.6B tons CO2 absorbed/year</div>
+                    <div class="feature"><i class="fas fa-check-circle"></i> 80% of biodiversity</div>
+                </div>
+                
+                <a href="https://iucn.org/resources/issues-brief/forests-and-climate-change" target="_blank" class="card-btn">
+                    استكشف <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card-image">
+                <img src="https://png.pngtree.com/background/20230825/original/pngtree-forest-forest-divine-plants-photo-picture-image_4825826.jpg" alt="Forest">
+                <div class="image-caption">غابات الأمازون - 2024</div>
+            </div>
+        </section>
+
+        <!-- قسم الفيديو -->
+        <section class="video-section" id="video">
+            <h2 class="section-title">Our <span>Video</span></h2>
+            <div class="card-divider" style="margin: 20px auto;"></div>
+            
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video id="mainVideo" controls poster="">
+                        <source src="d:\Downlouds\WhatsApp Video 2026-02-22 at 9.31.07 PM.mp4" type="video/mp4">
+                        <source src="video.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
+                <div class="video-controls">
+                    <button class="video-btn" id="playPauseBtn"><i class="fas fa-play"></i> تشغيل</button>
+                    <button class="video-btn" id="muteBtn"><i class="fas fa-volume-up"></i> كتم</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- نصائح -->
+        <section class="tips">
+            <h2 class="section-title">How You Can <span>Help</span></h2>
+            <div class="card-divider" style="margin: 20px auto;"></div>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-recycle"></i></div>
+                    <h3>أعد التدوير</h3>
+                    <p>قلل النفايات وأعد استخدام المواد لتقليل البصمة الكربونية</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>وفر الطاقة</h3>
+                    <p>استخدم لمبات LED وافصل الأجهزة غير المستخدمة</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-car"></i></div>
+                    <h3>استخدم النقل العام</h3>
+                    <p>قلل استخدام السيارة لتقليل انبعاثات الكربون</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="fas fa-tree"></i></div>
+                    <h3>ازرع شجرة</h3>
+                    <p>شارك في حملات التشجير المحلية</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- نموذج التعهد -->
+        <section class="pledge" id="pledge">
+            <h2 class="section-title">Take The <span>Pledge</span></h2>
+            <div class="card-divider" style="margin: 20px auto;"></div>
+            
+            <div class="pledge-box">
+                <h3><i class="fas fa-leaf"></i> One Planet, One Fate</h3>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">"One Planet, One Fate" shows that all people share the same Earth and future. It reminds us that global problems affect everyone. Our actions today will shape the future of the world we all live in.</p>
+                
+                <form class="pledge-form" id="pledgeForm">
+                    <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                    <button type="submit">أنا أتعهد</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="logo-icon" style="margin-bottom: 20px;">
+                    <i class="fas fa-globe-asia"></i>
+                </div>
+                <h3>Climate Change</h3>
+                <p>نعمل لنشر الوعي حول تغير المناخ وطرق المساهمة في حماية كوكبنا للأجيال القادمة.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#polar">الدببة القطبية</a></li>
+                    <li><a href="#wildfires">حرائق الغابات</a></li>
+                    <li><a href="#forests">الغابات</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>موارد</h4>
+                <ul>
+                    <li><a href="#">أبحاث</a></li>
+                    <li><a href="#">تقارير</a></li>
+                    <li><a href="#">منظمات</a></li>
+                    <li><a href="#">تواصل معنا</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h4>النشرة البريدية</h4>
+                <p>اشترك لتصلك آخر الأخبار</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="بريدك الإلكتروني">
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© عمل الطالب حازم مصطفي شومان | مدرسه الشهيد ابراهيم الرفاعي الرسميه المتميزه للغات
+    </footer>
+
+    <!-- زر العودة للأعلى -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // انتظار تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // شاشة التحميل
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1500);
+
+            // عناصر النافبار
+            const navbar = document.getElementById('navbar');
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const backToTop = document.getElementById('backToTop');
+            const scrollIndicator = document.getElementById('scrollIndicator');
+
+            // تغيير شكل النافبار عند التمرير
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                // زر العودة للأعلى
+                if (window.scrollY > 500) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+
+                // تفعيل الرابط النشط
+                activateCurrentSection();
+            });
+
+            // قائمة الجوال
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                if (navMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // إغلاق القائمة عند النقر على رابط
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                });
+            });
+
+            // تفعيل القسم النشط
+            function activateCurrentSection() {
+                const sections = document.querySelectorAll('section');
+                const scrollPos = window.scrollY + 200;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (sectionId && scrollPos >= sectionTop && scrollPos < sectionBottom) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+
+            // زر العودة للأعلى
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // مؤشر التمرير
+            scrollIndicator.addEventListener('click', function() {
+                document.getElementById('polar').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // عناصر الفيديو
+            const mainVideo = document.getElementById('mainVideo');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const muteBtn = document.getElementById('muteBtn');
+
+            if (mainVideo && playPauseBtn && muteBtn) {
+                playPauseBtn.addEventListener('click', function() {
+                    if (mainVideo.paused) {
+                        mainVideo.play();
+                        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i> إيقاف';
+                    } else {
+                        mainVideo.pause();
+                        playPauseBtn.innerHTML = '<i class="fas fa-play"></i> تشغيل';
+                    }
+                });
+
+                muteBtn.addEventListener('click', function() {
+                    mainVideo.muted = !mainVideo.muted;
+                    muteBtn.innerHTML = mainVideo.muted ? 
+                        '<i class="fas fa-volume-mute"></i> إلغاء كتم' : 
+                        '<i class="fas fa-volume-up"></i> كتم';
+                });
+            }
+
+            // نموذج التعهد
+            const pledgeForm = document.getElementById('pledgeForm');
+            if (pledgeForm) {
+                pledgeForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input').value;
+                    alert(`شكراً لتعهدك! تم إرسال تأكيد إلى: ${email}`);
+                    this.reset();
+                });
+            }
+
+            // النشرة البريدية
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input').value;
+                    alert(`تم الاشتراك بنجاح! سيصلك آخر الأخبار على: ${email}`);
+                    this.reset();
+                });
+            }
+
+            // تأثير ظهور البطاقات عند التمرير
+            const cards = document.querySelectorAll('.card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            cards.forEach(card => observer.observe(card));
+
+            // تحديث السنة في الفوتر
+            const footerYear = document.querySelector('.footer-bottom p');
+            if (footerYear) {
+                const currentYear = new Date().getFullYear();
+                footerYear.innerHTML = footerYear.innerHTML.replace('2024', currentYear);
+            }
+
+            console.log('✨ Climate Change Website - تم التحميل بنجاح');
+        });
+    </script>
+</body>
+</html>
